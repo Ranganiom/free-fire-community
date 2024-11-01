@@ -1,0 +1,189 @@
+import React, { useState } from 'react';
+import { 
+  Users, 
+  Video, 
+  Trophy,
+  MessageCircle,
+  UserPlus,
+  Search,
+  Bell
+} from 'lucide-react';
+
+const FreeFireCommunity = () => {
+  const [activeTab, setActiveTab] = useState('feed');
+
+  // Sample data
+  const posts = [
+    {
+      id: 1,
+      type: 'gameplay',
+      author: 'ProGamer123',
+      title: 'Clutch 1v4 Victory',
+      likes: 234,
+      comments: 45
+    },
+    {
+      id: 2,
+      type: 'achievement',
+      author: 'TeamAlpha',
+      title: 'Tournament Winners 2024',
+      likes: 567,
+      comments: 89
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-100">
+      {/* Navigation Bar */}
+      <nav className="bg-blue-600 text-white p-4">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <h1 className="text-2xl font-bold">FreeFire Hub</h1>
+          
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <input 
+                type="text" 
+                placeholder="Search players, teams..." 
+                className="px-4 py-2 rounded-lg text-black w-64"
+              />
+              <Search className="absolute right-3 top-2.5 text-gray-400 h-5 w-5" />
+            </div>
+            
+            <Bell className="h-6 w-6 cursor-pointer" />
+            <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto mt-6 px-4 flex gap-6">
+        {/* Left Sidebar */}
+        <div className="w-64 space-y-4">
+          <div className="bg-white rounded-lg p-4 shadow">
+            <h2 className="font-semibold mb-4">Navigation</h2>
+            <ul className="space-y-2">
+              <li 
+                className={`flex items-center space-x-2 p-2 rounded cursor-pointer ${activeTab === 'feed' ? 'bg-blue-50 text-blue-600' : ''}`}
+                onClick={() => setActiveTab('feed')}
+              >
+                <Video className="h-5 w-5" />
+                <span>Feed</span>
+              </li>
+              <li 
+                className={`flex items-center space-x-2 p-2 rounded cursor-pointer ${activeTab === 'teams' ? 'bg-blue-50 text-blue-600' : ''}`}
+                onClick={() => setActiveTab('teams')}
+              >
+                <Users className="h-5 w-5" />
+                <span>Teams</span>
+              </li>
+              <li 
+                className={`flex items-center space-x-2 p-2 rounded cursor-pointer ${activeTab === 'achievements' ? 'bg-blue-50 text-blue-600' : ''}`}
+                onClick={() => setActiveTab('achievements')}
+              >
+                <Trophy className="h-5 w-5" />
+                <span>Achievements</span>
+              </li>
+              <li 
+                className={`flex items-center space-x-2 p-2 rounded cursor-pointer ${activeTab === 'messages' ? 'bg-blue-50 text-blue-600' : ''}`}
+                onClick={() => setActiveTab('messages')}
+              >
+                <MessageCircle className="h-5 w-5" />
+                <span>Messages</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Main Feed */}
+        <div className="flex-1 space-y-4">
+          {/* Create Post */}
+          <div className="bg-white rounded-lg p-4 shadow">
+            <div className="flex space-x-4">
+              <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
+              <input 
+                type="text" 
+                placeholder="Share your gameplay or achievement..." 
+                className="flex-1 bg-gray-100 rounded-lg px-4"
+              />
+            </div>
+            <div className="flex justify-end mt-4 space-x-2">
+              <button className="px-4 py-2 bg-gray-100 rounded-lg">Upload Clip</button>
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg">Post</button>
+            </div>
+          </div>
+
+          {/* Posts Feed */}
+          {posts.map(post => (
+            <div key={post.id} className="bg-white rounded-lg p-4 shadow">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
+                <div>
+                  <h3 className="font-semibold">{post.author}</h3>
+                  <p className="text-sm text-gray-500">2 hours ago</p>
+                </div>
+              </div>
+              <h4 className="font-semibold mb-2">{post.title}</h4>
+              <div className="bg-gray-100 h-48 rounded-lg mb-4"></div>
+              <div className="flex items-center space-x-4 text-gray-500">
+                <button className="flex items-center space-x-1">
+                  <span>👍</span>
+                  <span>{post.likes}</span>
+                </button>
+                <button className="flex items-center space-x-1">
+                  <MessageCircle className="h-4 w-4" />
+                  <span>{post.comments}</span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Right Sidebar */}
+        <div className="w-80 space-y-4">
+          {/* Team Recruitment */}
+          <div className="bg-white rounded-lg p-4 shadow">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-semibold">Team Recruitment</h2>
+              <UserPlus className="h-5 w-5 text-blue-600" />
+            </div>
+            <div className="space-y-4">
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h3 className="font-semibold">Team Alpha</h3>
+                <p className="text-sm text-gray-600 mb-2">Looking for competitive players</p>
+                <button className="text-sm text-blue-600">Apply Now</button>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h3 className="font-semibold">Team Phoenix</h3>
+                <p className="text-sm text-gray-600 mb-2">Recruiting content creators</p>
+                <button className="text-sm text-blue-600">Apply Now</button>
+              </div>
+            </div>
+          </div>
+
+          {/* Top Players */}
+          <div className="bg-white rounded-lg p-4 shadow">
+            <h2 className="font-semibold mb-4">Top Players</h2>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+                <div>
+                  <p className="font-semibold">ProGamer123</p>
+                  <p className="text-sm text-gray-500">1.2M followers</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+                <div>
+                  <p className="font-semibold">FireKing</p>
+                  <p className="text-sm text-gray-500">980K followers</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default FreeFireCommunity;
